@@ -1,0 +1,47 @@
+.Footer{
+    min-width: 100wv;
+    min-height: 50vh;
+    background-color: black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Footer > .logo > a {
+    color: white;
+    text-decoration: none;
+}
+
+.Footer > div > ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.Footer > div > ul > li:first-child{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.Footer > div > ul> li{
+    color: white;
+    font-size: 13px;
+    margin: 10px;
+}
+
+.support{
+    height: 35vh;
+}
+
+.account{
+    height: 35vh;
+}
+
+.privacy{
+    height: 35vh;
+}
+
+.social{
+    height: 35vh;
+}
