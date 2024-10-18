@@ -45,6 +45,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+}
+
+.category-items> div:hover{
+    background-color: #DB4444;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+
+.category-items> div:hover img{
+    filter: invert(100%) brightness(100%);
 }
 
 .category-items> div > h5 {

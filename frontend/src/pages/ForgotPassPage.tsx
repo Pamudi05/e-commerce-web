@@ -1,11 +1,10 @@
+import { Link } from "react-router-dom";
 import Footer from "../components/footer/Footer";
+import { TextField } from "@mui/material";
 import NavBar from "../components/navBar/NavBar";
 import TopHeader from "../components/topHeader/topHead";
-import "../App.css";
-import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
 
-function SignUp() {
+function forgotPassword() {
   return (
     <>
       <TopHeader />
@@ -16,35 +15,9 @@ function SignUp() {
         </div>
         <div className="signUp-right element">
           <div>
-            <p>Create an account</p>
+            <p>Forgot Password</p>
             <h4>Enter your details below</h4>
             <div className="textField">
-              <TextField
-                id="standard-basic"
-                label="Enter Your Name"
-                variant="standard"
-                sx={{
-                  "& label.Mui-focused": {
-                    color: "black",
-                  },
-                  "& .MuiInput-underline:after": {
-                    borderBottomColor: "black",
-                  },
-                }}
-              />
-              <TextField
-                id="standard-basic"
-                label="Enter Email or Phone Number"
-                variant="standard"
-                sx={{
-                  "& label.Mui-focused": {
-                    color: "black",
-                  },
-                  "& .MuiInput-underline:after": {
-                    borderBottomColor: "black",
-                  },
-                }}
-              />
               <TextField
                 id="standard-basic"
                 label="Password"
@@ -58,19 +31,23 @@ function SignUp() {
                   },
                 }}
               />
+              <TextField
+                id="standard-basic"
+                label="Confirm Password"
+                variant="standard"
+                sx={{
+                  "& label.Mui-focused": {
+                    color: "black",
+                  },
+                  "& .MuiInput-underline:after": {
+                    borderBottomColor: "black",
+                  },
+                }}
+              />
             </div>
-
-            <Link to="/login" style={{textDecoration: 'none'}}>
-              <div className="login">Create Account</div>
-            </Link>
-            <div className="google">
-              <img src="/assets/google.png" alt="" />
-              SignUp with Google
+            <div className="login">
+              <Link to="/login" style={{ textDecoration: 'none', color:'white'}}>Change Password</Link>
             </div>
-          </div>
-          <div className="acc">
-            <p>Already have account?</p> 
-            <Link to="/login">Log in</Link>
           </div>
         </div>
       </div>
@@ -79,4 +56,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default forgotPassword;
