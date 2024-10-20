@@ -402,15 +402,13 @@ button {
 .wishlist {
     max-width: 100wv;
     min-height: 90vh;
-    padding: 50px;
 }
 
 .wish {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 90px;
-    margin-right: 180px;
+    margin: 30px 150px;
 }
 
 .wish > a {
@@ -428,8 +426,9 @@ button {
 .wishCard {
     display: flex;
     flex-wrap: wrap;
-    gap: 35px;
+    gap: 50px;
     padding: 40px 90px;
+    margin: 40px;
 }
 
 /* ---Cart----- */
@@ -437,7 +436,6 @@ button {
 .cart{
     max-width: 100wv;
     min-height: 90vh;
-    padding: 50px;
 }
 
 .cart-card {
@@ -494,4 +492,127 @@ button {
 
 .cart-product > ul > li > p{
     margin-left: 10px;
+}
+
+.cart-total {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 80px; 
+}
+
+.cart-total > div {
+    width: 400px;
+    height: 300px;
+    border: 2px solid;
+    padding: 0 20px;
+    font-family: 'Poppins';
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ----CheckOut-------- */
+
+.checkout{
+    max-width: 100wv;
+    min-height: 100vh;
+}
+
+.check {
+    height: 100vh;
+    display: flex;
+}
+
+.check-left {
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-left: 150px;
+}
+
+.check-left > p {
+    font-size: 25px;
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+
+.check-left > div {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0;
+}
+
+label {
+    color: gray;
+    font-size: 15px;
+    padding: 10px 0;
+}
+
+input {
+    height: 30px;
+    border: none;
+    background-color: #F5F5F5;
+    user-select: none;
+}
+
+input:focus {
+    outline: none;
+    color: gray;
+}
+
+.check-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-right > div {
+    width: 425px;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    margin: 10px;
+}
+
+.check-right > div >img {
+    width: 75px;
+    height: 100%;
+}
+
+.check-right > .check-total {
+    width: 425px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.check-right > .check-total > div {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    margin-top: 10px;
+}
+
+.input {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center;
+}
+
+#input {
+    height: 20px;
+    accent-color: black;
 }

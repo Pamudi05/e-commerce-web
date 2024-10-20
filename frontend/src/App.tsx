@@ -10,6 +10,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProductDetailsPage from "./pages/ProductDetails";
 import WishlistPage from "./pages/WishlistPage";
 import CartPage from "./pages/CartPage";
+import CheckOutPage from "./pages/CheckOutPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/productDetails" element={<ProductDetailsPage />}/>
         <Route path="/wishlist" element={<WishlistPage />}/>
         <Route path="/cart" element={<CartPage />}/>
+        <Route path="/checkout" element={<CheckOutPage />}/>
         <Route path="/error" element={<NotFoundPage />}/>
       </Routes>
     </BrowserRouter>

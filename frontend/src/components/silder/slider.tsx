@@ -61,7 +61,7 @@ function Slider() {
           <p>{slides[currentIndex].subtitle}</p>
         </div>
         <div className="text-3">
-          <Link to="/">Shop Now</Link>
+          <Link to="/homepage">Shop Now</Link>
           <img src="/assets/arrow-right.svg" alt="arrow-right" />
         </div>
       </div>

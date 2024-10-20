@@ -10,6 +10,11 @@ function Wishlist() {
       <TopHeader />
       <NavBar />
       <div className="wishlist">
+      <div className="content">
+          <p style={{ color: "grey" }}>Home</p>
+          <p>/</p>
+          <p>WhishList</p>
+        </div>
         <div className="wish">
           <h5>Wishlist (9)</h5>
           <Link to="/cart">
