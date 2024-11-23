@@ -1,16 +1,35 @@
 import { Card } from "@mui/material";
 import "./productsCard.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import Product from "../../interfaces/Product";
 
-function productCard() {
+interface ProductCardProps {
+  product: Product;
+}
+
+function ProductCard({ product }: ProductCardProps) {
+
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const handleDelete = () => {
+    setIsDeleted(true);
+    toast.success("Product removed");
+  };
+
+  if (isDeleted) {
+    return null;
+  }
+
   return (
     <>
       <Card className="productCard">
         <div className="img-card">
-          <div className="bin-card">
+          <div className="bin-card" onClick={handleDelete}>
             <img src="/assets/delete.png" alt="" />
           </div>
-          <img src="/assets/bag.png" alt="product-image" />
+          <img src={product.image} alt={product.name} />
           <div className="btn">
             <img src="/assets/cart.png" alt="cart" />
             <Link to="/cart">
@@ -18,8 +37,8 @@ function productCard() {
             </Link>
           </div>
           <div className="price-card">
-            <p>Gucci duffle bag</p>
-            <p style={{ color: "red" }}>$960</p>
+            <p>{product.name}</p>
+            <p style={{ color: "red" }}>Rs.{product.price}</p>
           </div>
         </div>
       </Card>
@@ -27,4 +46,4 @@ function productCard() {
   );
 }
 
-export default productCard;
+export default ProductCard;

@@ -1,51 +1,98 @@
-.sidebar{
-    width: 100%;
-    height: 80%;
-    border-right: 1px solid rgba(0,0,0,0.2);
+.sidebar {
+  width: 100%;
+  height: 80%;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.dropdown> li > div  {
-    padding: 8px;
-    margin: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 8px;
+.dropdown > li > div{
+  padding: 8px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
 }
 
-.dropdown > li >div:hover {
-    cursor: pointer;
-    background-color: #DB4444;
-    color: white;
-    transition: background-color 0.3s;
-  }
 
-.dropdown> li {
-    list-style: none;
+.dropdown > li > div > a{
+  text-decoration: none;
+  color: black;
 }
 
-.dropdown> li:hover img{
-    cursor: pointer;
-    filter: invert(100%) brightness(100%);
+.dropdown > li > a{
+  padding: 8px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  text-decoration: none;
+  color: black;
 }
 
+.active {
+  border: 2px solid #db4444;
+}
+
+.active-section {
+  background-color: #db4444;
+  color: white;
+}
+
+.active-section img {
+  filter: invert(100%) brightness(100%);
+}
+
+.dropdown > li > div > a:hover{
+  cursor: pointer;
+  background-color: #db4444;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.dropdown > li > div:hover {
+  cursor: pointer;
+  background-color: #db4444;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.dropdown > li > a:hover{
+  cursor: pointer;
+  background-color: #db4444;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.dropdown > li {
+  list-style: none;
+}
+
+.dropdown > li:hover img {
+  cursor: pointer;
+  filter: invert(100%) brightness(100%);
+}
 
 .dropdown-item {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    margin-top: 5px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
 }
 
-.dropdown-item > li{
-    padding: 8px;
-    margin: 5px;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-} 
-
-.dropdown-item > li:hover{
-    background-color: #DB4444;
-    color: white;
+.dropdown-item > a {
+  text-decoration: none;
 }
 
+.dropdown-item > a > li {
+  padding: 8px;
+  margin: 5px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  color: black;
+}
+
+.dropdown-item > a > li:hover {
+  background-color: #db4444;
+  color: white;
+}

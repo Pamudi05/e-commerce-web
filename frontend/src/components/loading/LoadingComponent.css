@@ -1,0 +1,141 @@
+.loading-body {
+    height: 100vh;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loading-container {
+    width: 140px;
+    height: 5px;
+    margin-top: 40px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+  }
+  
+  .loading-bar {
+    width: 30%;
+    height: 100%;
+    background-color: #264fca;
+    position: absolute;
+    left: 0;
+    border-radius: 5px;
+    animation:
+      width 1s linear infinite,
+      loading 1s linear infinite,
+      background-color 1s ease-in-out infinite alternate;
+  }
+  
+  @keyframes loading {
+    0% {
+      left: -20%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  @keyframes width {
+    0% {
+      width: 0%;
+    }
+    69% {
+      width: 60%;
+    }
+    100% {
+      width: 10%;
+    }
+  }
+  
+  @keyframes background-color {
+    0% {
+      color: #264eca50;
+    }
+  
+    50% {
+      color: #264eca80;
+    }
+  
+    100% {
+      color: #264eca;
+    }
+  }
+  
+  .loading-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .square-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .square1 {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 25%;
+    border: 4px solid;
+  
+    padding: 10px;
+    animation:
+      border-color 1s ease-in-out infinite alternate,
+      rotate1 3s linear infinite;
+  }
+  
+  .square2 {
+    position: absolute;
+    width: 112.5px;
+    height: 112.5px;
+    border-radius: 25%;
+    border: 3px solid;
+    padding: 10px;
+    animation:
+      rotate2 3s linear infinite,
+      border-color 1s ease-in-out infinite alternate;
+  }
+  
+  @keyframes rotate1 {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes rotate2 {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  
+  @keyframes border-color {
+    0% {
+      color: #264eca50;
+    }
+  
+    50% {
+      color: #264eca80;
+    }
+  
+    100% {
+      color: #264eca;
+    }
+  }
+  

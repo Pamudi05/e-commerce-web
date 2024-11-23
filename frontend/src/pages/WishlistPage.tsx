@@ -3,8 +3,34 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
 import ProductCard from "../components/productCard/productCard";
 import TopHeader from "../components/topHeader/topHead";
+import { useEffect, useState } from "react";
+import AxiosInstance from "../config/axiosInstance";
+import { toast } from "react-toastify";
+import LinearLoadingComponent from "../components/loading/LinearLoadingComponent";
 
 function Wishlist() {
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  const getProducts = async () => {
+    setLoading(true);
+    try {
+        const response = await AxiosInstance.get("/products/findAll");
+        setProducts(response.data)
+        console.log(response);
+        toast.success(response.data.message || "Wishlist loaded successfully")
+    } catch (error) {
+      toast.error("Failed to create account. Please try again.");
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+  
   return (
     <>
       <TopHeader />
@@ -16,7 +42,7 @@ function Wishlist() {
           <p>WhishList</p>
         </div>
         <div className="wish">
-          <h5>Wishlist (9)</h5>
+          <h5>Wishlist ({products.length})</h5>
           <Link to="/cart">
             <div>
               <h5>Move All to Bag</h5>
@@ -24,17 +50,13 @@ function Wishlist() {
           </Link>
         </div>
         <div className="wishCard">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {loading ? (
+            <p><LinearLoadingComponent /></p>
+          ) : (
+            products.map((product) => (
+              <ProductCard key={product} product={product} />
+            ))
+          )}
         </div>
       </div>
       <Footer />
