@@ -1,3 +1,4 @@
+const Customer= require("../Model/CustomerModel");
 const Product = require("../Model/PoductModel");
 
 const createProduct = async (req, res) => {

@@ -14,6 +14,9 @@ app.use(cors());
 const CustomerRoute = require("./Route/CustomerRoute");
 const AuthRoute = require("./Route/AuthRoute");
 const ProductRoute = require("./Route/ProductRoute");
+const WhishlistRoute = require("./Route/WishlistRoute");
+const CartRoute = require("./Route/CartRoute");
+const OrderRoute = require("./Route/OrderRoute");
 //-------------
 
 app.use(cookieParser());
@@ -33,6 +36,9 @@ try {
 app.use("/api/v1/customers", CustomerRoute);
 app.use("/api/v1/auth", AuthRoute);
 app.use("/api/v1/products", ProductRoute);
+app.use("/api/v1/whishlists", WhishlistRoute);
+app.use("/api/v1/carts", CartRoute);
+app.use("/api/v1/orders", OrderRoute);
 
 app.use('/uploads', express.static('uploads'));
 
