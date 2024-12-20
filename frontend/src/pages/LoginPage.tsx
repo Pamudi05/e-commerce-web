@@ -22,14 +22,21 @@ function Login() {
         password
       });
 
-      console.log(response);
-      toast.success(response.data.message || "Login successfully")
+      //console.log(response.data);    
+      const customerId = response.data.customer.customerId;
       
+    if (customerId) {
+      localStorage.setItem("customerId", customerId);
+      toast.success(response.data.message || "Login successfully");
 
       setEmail("");
       setPassword("");
 
       navigate("/homepage");
+    } else {
+      toast.error("Customer ID not found in response.");
+      console.log("Failed to set customerId: customerId is undefined");
+    }
     } catch (error) {
       toast.error("Failed to create account. Please try again.")
       console.log(error);

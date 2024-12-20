@@ -12,6 +12,8 @@ function DreassesPage() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
+  const customerId = localStorage.getItem("customerId");
+
   const getProducts = async () => {
     setLoading(true);
     try {
@@ -41,7 +43,10 @@ function DreassesPage() {
         <div className="home-left element">
           <Sidebar />
         </div>
-        <div className="home-right element" style={{justifyContent:'flex-start'}}>
+        <div
+          className="home-right element"
+          style={{ justifyContent: "flex-start" }}
+        >
           <div className="wishCard" style={{ margin: 0, padding: "20px 90px" }}>
             {loading ? (
               <p>
@@ -49,7 +54,13 @@ function DreassesPage() {
               </p>
             ) : (
               dresses.map((product) => (
-                <ProductCard key={product.code} product={product} />
+                <ProductCard
+                  key={product.code}
+                  product={product}
+                  showLikeButton={true}
+                  products={product._id}
+                  customer={customerId || undefined}
+                />
               ))
             )}
           </div>

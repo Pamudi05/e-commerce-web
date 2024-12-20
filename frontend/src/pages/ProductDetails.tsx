@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
 import TopHeader from "../components/topHeader/topHead";
 
 function ProductDetails() {
+  const navigate = useNavigate();
+  
+  const handleSubmit = () => {
+    navigate('/checkout')
+  }
+
   return (
     <>
       <TopHeader />
@@ -33,7 +40,7 @@ function ProductDetails() {
               <div>-</div>
               <div style={{ width: "80px" }}>2</div>
               <div style={{ marginRight: "10px" }}>+</div>
-              <button style={{ width: "165px", height: "44px", margin: "0" }}>
+              <button style={{ width: "165px", height: "44px", margin: "0" }} onClick={handleSubmit}>
                 Buy Now
               </button>
             </div>

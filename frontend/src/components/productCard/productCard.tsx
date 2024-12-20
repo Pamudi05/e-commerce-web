@@ -1,40 +1,154 @@
 import { Card } from "@mui/material";
 import "./productsCard.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+//import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Product from "../../interfaces/Product";
+import AxiosInstance from "../../config/axiosInstance";
+import Carts from "../../interfaces/Cart";
+import WhishList from "../../interfaces/Wishlist";
 
 interface ProductCardProps {
   product: Product;
+  showDeleteButton?: boolean;
+  showLikeButton?: boolean;
+  products?: string;
+  customer?: string;
+  onProductDelete?: (productId: string) => void;
 }
 
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({
+  product,
+  showDeleteButton = false,
+  showLikeButton = false,
+  products,
+  customer,
+  onProductDelete,
+}: ProductCardProps) {
 
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+  const [, setWhislists] = useState<WhishList[]>([]);
+  const [, setCart] = useState<Carts[]>([]);
+  const [, setLoading] = useState(false);
 
-  const handleDelete = () => {
-    setIsDeleted(true);
-    toast.success("Product removed");
+  useEffect(() => {
+    if (customer && products) {
+      const getAwhishlist = async () => {
+        try {
+          const response = await AxiosInstance.get(`/whishlists/${customerId}`);
+          console.log(response.data.data)
+          console.log(products)
+          const isInWishlist = response.data.data.some(
+            (wishlistItem: any) => wishlistItem.productId._id === products
+          );
+          setIsSelected(isInWishlist);
+          console.log(isInWishlist)
+
+        } catch (error) {
+          console.log("Failed to check wishlist status", error);
+        }
+      };
+
+      getAwhishlist();
+    }
+  }, [customer, products]);
+
+  const handleHeart = async () => {
+    setLoading(true);
+    try {
+      if (isSelected) {
+        await AxiosInstance.delete(`/whishlists/${customer}/${products}`);
+        toast.success("Removed from Wishlist");
+      } else {
+        await AxiosInstance.post("/whishlists/create", {
+          customerId: customer,
+          productId: products,
+        });
+        //toast.success("Added to Wishlist");
+      }
+      setIsSelected((prev) => !prev);
+    } catch (error) {
+      toast.error("Product already in the Wishlist");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (isDeleted) {
-    return null;
-  }
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      await AxiosInstance.delete(`/whishlists/${customer}/${products}`);
+      if (onProductDelete && products) {
+        onProductDelete(products);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const customerId = localStorage.getItem("customerId");
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+
+      if (customer && product) {
+          await AxiosInstance.delete(
+            `/whishlists/${customerId}/${product._id}`
+          );
+      }
+
+      await AxiosInstance.post("/carts/add", {
+        customerId,
+        products: [
+          {
+            productId: product._id,
+            quantity: product.qty || 1,
+          },
+        ],
+      });
+
+      setWhislists([])
+      setCart([]);
+      toast.success("product moved to the cart successfully!");
+    } catch (error: any) {
+      console.log(`${error.response.data.message}`);
+    }
+  };
 
   return (
     <>
       <Card className="productCard">
         <div className="img-card">
-          <div className="bin-card" onClick={handleDelete}>
-            <img src="/assets/delete.png" alt="" />
-          </div>
+          {showDeleteButton && (
+            <div className="heart-card">
+              <img
+                src="/assets/delete.png"
+                alt="heart"
+                onClick={handleDelete}
+              />
+            </div>
+          )}
+          {showLikeButton && (
+            <div className="heart-card">
+              <img
+                src={
+                  isSelected
+                    ? "/assets/red-heart.svg"
+                    : "/assets/heart-regular.svg"
+                }
+                alt="heart"
+                onClick={handleHeart}
+              />
+            </div>
+          )}
           <img src={product.image} alt={product.name} />
-          <div className="btn">
+          <div
+            className="btn"
+            onClick={handleSubmit}
+          >
             <img src="/assets/cart.png" alt="cart" />
-            <Link to="/cart">
-              <p>Add To Cart</p>
-            </Link>
+            <p>Add To Cart</p>
           </div>
           <div className="price-card">
             <p>{product.name}</p>

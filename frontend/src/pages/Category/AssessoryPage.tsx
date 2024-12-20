@@ -12,12 +12,13 @@ function AccessoryPage() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
+  const customerId = localStorage.getItem("customerId");
+
   const getProducts = async () => {
     setLoading(true);
     try {
       const response = await AxiosInstance.get("/products/findAll");
       setProducts(response.data);
-      console.log(response);
     } catch (error) {
       toast.error("Please try again.");
       console.log(error);
@@ -54,7 +55,13 @@ function AccessoryPage() {
               </p>
             ) : (
               accessories.map((product) => (
-                <ProductCard key={product.code} product={product} />
+                <ProductCard
+                  key={product.code}
+                  product={product}
+                  showLikeButton={true}
+                  products={product._id}
+                  customer={customerId || undefined}
+                />
               ))
             )}
           </div>

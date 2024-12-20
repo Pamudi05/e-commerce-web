@@ -406,6 +406,18 @@ button {
     min-height: 90vh;
 }
 
+.wishlist  > .title {
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.wishlist > .title > p {
+    margin: 10px;
+    font-weight: bold;
+    color: #DB4444;
+}
+
 .wish {
     display: flex;
     justify-content: space-between;
@@ -413,16 +425,51 @@ button {
     margin: 30px 150px;
 }
 
-.wish > a {
-    text-decoration: none;
-    color: black;
-}
-
-.wish > a > div {
+.wish > div {
     width: 223px;
     height: 56px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     text-align: center;
+    cursor: pointer;
+}
+
+.category {
+    max-width: 100wv;
+    min-height: 70vh ;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.category > div {
+    width: 90%;
+    min-height: 50vh ;
+    margin-left: 75px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.title > p {
+    margin: 10px;
+    font-weight: bold;
+    color: #DB4444;
+}
+.box {
+    width: 25px;
+    height: 40px;
+    background-color: #DB4444;
+
+}
+
+.wish > div:hover {
+    background-color: black;
+    color: white;
 }
 
 .wishCard {
@@ -443,7 +490,7 @@ button {
 .cart-card {
     width: 80vw;
     min-height: 80vh;
-    margin: 60px 90px;
+    margin: 40px 140px;
 }
 
 .cart-title {
@@ -452,6 +499,7 @@ button {
     box-sizing: border-box;
     border-radius: 20px;
     box-shadow: 0.5px 0.5px 15px rgba(0, 0,0, 0.1);
+    display: flex;
 }
 
 .cart-title > ul {
@@ -464,9 +512,14 @@ button {
 
 .cart-title > ul > li{
     width: 200px;
+    list-style: none;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+a {
+    text-decoration: none;
 }
 
 .cart-product {
@@ -475,6 +528,8 @@ button {
     box-sizing: border-box;
     border-radius: 20px;
     box-shadow: 0.5px 0.5px 15px rgba(0, 0,0, 0.1);
+    color: black;
+    display: flex;
 }
 
 .cart-product > ul {
@@ -482,18 +537,24 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0px;
+    padding: 25px 0px;
 }
 
 .cart-product > ul > li {
     width: 200px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .cart-product > ul > li > p{
     margin-left: 10px;
+}
+
+.cart-product > ul > li > img{
+     width: 50px;
+     height: 50px;
+     object-fit: cover;
 }
 
 .cart-total {

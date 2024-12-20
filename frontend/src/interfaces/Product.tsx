@@ -1,9 +1,11 @@
 interface Product {
-  code: string;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
+  _id: string;
+  code?: string;
+  name?: string;
+  price?: number;
+  qty?: number;
+  image?: string;
+  category?: string;
 }
 
 export default Product;

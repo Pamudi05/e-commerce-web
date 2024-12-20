@@ -12,6 +12,8 @@ function MenBagsPage() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
+  const customerId = localStorage.getItem("customerId");
+  
   const getProducts = async () => {
     setLoading(true);
     try {
@@ -52,7 +54,13 @@ function MenBagsPage() {
               </p>
             ) : (
               menBags.map((product) => (
-                <ProductCard key={product.code} product={product} />
+                <ProductCard
+                  key={product.code}
+                  product={product}
+                  showLikeButton={true}
+                  products={product._id}
+                  customer={customerId || undefined}
+                />
               ))
             )}
           </div>

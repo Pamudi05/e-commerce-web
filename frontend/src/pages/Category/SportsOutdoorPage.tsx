@@ -12,12 +12,13 @@ function SportPage() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
+  const customerId = localStorage.getItem("customerId");
+
   const getProducts = async () => {
     setLoading(true);
     try {
       const response = await AxiosInstance.get("/products/findAll");
       setProducts(response.data);
-      console.log(response);
     } catch (error) {
       toast.error("Please try again.");
       console.log(error);
@@ -32,13 +33,13 @@ function SportPage() {
 
   const sport = products.filter(
     (product) => product.category === "Sports"
+    
   );
 
   return (
     <div>
       <TopHeader />
       <NavBar />
-      {/* using same css */}
       <div className="home">
         <div className="home-left element">
           <Sidebar />
@@ -49,12 +50,18 @@ function SportPage() {
         >
           <div className="wishCard" style={{ margin: 0, padding: "20px 90px" }}>
             {loading ? (
-              <p>
+              <p style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <LinearLoadingComponent />
               </p>
             ) : (
-                sport.map((product) => (
-                <ProductCard key={product.code} product={product} />
+              sport.map((product) => (
+                <ProductCard
+                    key={product._id}
+                    product={product}
+                    showLikeButton={true}
+                    products={product._id}
+                    customer={customerId || undefined}
+                  />
               ))
             )}
           </div>

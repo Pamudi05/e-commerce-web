@@ -1,10 +1,10 @@
 import '../App.css';
-import Category from '../components/category/category';
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
 import Sidebar from '../components/sidebar/Sidebar';
 import Slider from '../components/silder/slider';
 import TopHeader from "../components/topHeader/topHead";
+import AllProducts from './AllProducts';
 
 function HomePage() {
     return (
@@ -19,7 +19,7 @@ function HomePage() {
                     <Slider/>
                 </div>
             </div>
-            <Category/>
+            <AllProducts/>
             <Footer/>
         </div>
     );
