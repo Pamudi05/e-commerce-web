@@ -45,10 +45,12 @@ function Login() {
     }
   }
 
+  const [, setSearchText] = useState("");
+
   return (
     <>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText}/>
       <div className="signUp">
         <div className="signUp-left element">
           <img src="/assets/Side-Image.png" alt="side" />

@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
 import TopHeader from "../components/topHeader/topHead";
+import { useState } from "react";
 
 function NotFound() {
+  const [, setSearchText] = useState("");
   return (
     <>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText}/>
       <div className="notFound">
         <div className="content">
           <p style={{ color: "grey" }}>Home</p>

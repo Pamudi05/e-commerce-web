@@ -36,13 +36,13 @@ function ProductCard({
       const getAwhishlist = async () => {
         try {
           const response = await AxiosInstance.get(`/whishlists/${customerId}`);
-          console.log(response.data.data)
-          console.log(products)
+          // console.log(response.data.data)
+          // console.log(products)
           const isInWishlist = response.data.data.some(
             (wishlistItem: any) => wishlistItem.productId._id === products
           );
           setIsSelected(isInWishlist);
-          console.log(isInWishlist)
+          //console.log(isInWishlist)
 
         } catch (error) {
           console.log("Failed to check wishlist status", error);
@@ -92,7 +92,7 @@ function ProductCard({
     setLoading(true);
     try {
 
-      if (customer && product) {
+      if (customer && products) {
           await AxiosInstance.delete(
             `/whishlists/${customerId}/${product._id}`
           );
@@ -108,7 +108,7 @@ function ProductCard({
         ],
       });
 
-      setWhislists([])
+      setWhislists([]);
       setCart([]);
       toast.success("product moved to the cart successfully!");
     } catch (error: any) {
@@ -142,10 +142,11 @@ function ProductCard({
               />
             </div>
           )}
-          <img src={product.image} alt={product.name} />
+          <img src={product.image?.[0]} alt={product.name} />
           <div
             className="btn"
             onClick={handleSubmit}
+            key={product._id}
           >
             <img src="/assets/cart.png" alt="cart" />
             <p>Add To Cart</p>

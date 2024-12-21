@@ -5,16 +5,22 @@ import LinearLoadingComponent from "../components/loading/LinearLoadingComponent
 import Product from "../interfaces/Product";
 import ProductCard from "../components/productCard/productCard";
 
-function AllProducts() {
+interface AllProductsProps {
+  searchText: string;
+}
+
+function AllProducts({ searchText }: AllProductsProps) {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
   const customerId = localStorage.getItem("customerId");
 
-  const getProducts = async () => {
+  const getProducts = async (searchQuery: string = "") => {
     setLoading(true);
     try {
-      const response = await AxiosInstance.get("/products/findAll");
+      const response = await AxiosInstance.get("/products/findAll" , {
+        params: { searchText: searchQuery },
+      });
       setProducts(response.data);
       console.log(response);
     } catch (error) {
@@ -26,8 +32,8 @@ function AllProducts() {
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts(searchText);
+  }, [searchText]);
 
   return (
     <div className="category">
@@ -41,7 +47,7 @@ function AllProducts() {
           <p>
             <LinearLoadingComponent />
           </p>
-        ) : (
+        ) :  products.length > 0 ? (
           products.map((product) => (
             <ProductCard
               key={product._id}
@@ -58,6 +64,8 @@ function AllProducts() {
               customer={customerId || undefined}
             />
           ))
+        ) : (
+          <p style={{width: '100%',  textAlign: 'center'}}>No products found.</p>
         )}
         </div>
       </div>

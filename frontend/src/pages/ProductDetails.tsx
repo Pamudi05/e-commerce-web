@@ -1,45 +1,70 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
 import TopHeader from "../components/topHeader/topHead";
+import { useState } from "react";
 
 function ProductDetails() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const products = location.state?.product;
+  console.log(products)
+
+  const [qty, setQty] = useState(products.qty);
+  if (!products) {
+    return <p>Product details not found.</p>;
+  }
   
   const handleSubmit = () => {
-    navigate('/checkout')
+    const updatedPrice = Number(qty) * products.price;
+    navigate('/checkout', { state: { product: {...products, qty , price: updatedPrice}} })
   }
 
+  const increaseQty = () => setQty(qty + 1);
+  const decreaseQty = () => {
+    if (qty > 1) setQty(qty - 1);
+  };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [, setSearchText] = useState("");
+  
   return (
     <>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText}/>
       <div className="productDetail">
         <div className="content">
           <p style={{ color: "grey" }}>Product</p>
           <p>/</p>
-          <p>Name of the product</p>
+          <p>{products.name}</p>
         </div>
+
         <div className="details">
           <div className="details-left">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+          {products.image && products.image.slice(0, 4).map((img: string, index: number) => (
+            <div key={index}>
+              <img src={img} alt={`Image ${index}`} style={{ width: '100%' }} />
+            </div>
+          ))}
           </div>
-          <div className="details-right"></div>
+          <div className="details-right">
+            {products.image && products.image.slice(4).map((img: string, index: number) => (
+              <div key={index + 4}>
+                <img src={img} alt={`Image ${index + 4}`} style={{ width: '100%' }} />
+              </div>
+            ))}
+          </div>
           <div className="product-details">
-            <h3>Havic HV G-92 Gamepad</h3>
-            <p>Rs.192.00</p>
+            <h3>{products.name}</h3>
+            <p>Rs.{Number(qty) * products.price}</p>
             <p style={{borderBottom: '1px solid rgba(0, 0, 0, 0.3)', width:'350px', paddingBottom:'40px'}}>
-              PlayStation 5 Controller Skin High quality vinyl with air channel
-              adhesive for easy bubble free install & mess free removal Pressure
-              sensitive.
+              {products.note}
             </p>
             <div className="qty">
-              <div>-</div>
-              <div style={{ width: "80px" }}>2</div>
-              <div style={{ marginRight: "10px" }}>+</div>
+              <div onClick={decreaseQty} style={{ cursor: "pointer" }}>-</div>
+              <div style={{ width: "80px" }}>{qty}</div>
+              <div onClick={increaseQty} style={{ marginRight: "10px", cursor: "pointer"  }}>+</div>
               <button style={{ width: "165px", height: "44px", margin: "0" }} onClick={handleSubmit}>
                 Buy Now
               </button>

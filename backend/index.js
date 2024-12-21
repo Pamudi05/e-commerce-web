@@ -17,6 +17,7 @@ const ProductRoute = require("./Route/ProductRoute");
 const WhishlistRoute = require("./Route/WishlistRoute");
 const CartRoute = require("./Route/CartRoute");
 const OrderRoute = require("./Route/OrderRoute");
+const ContactRoute = require("./Route/ContactRoute");
 //-------------
 
 app.use(cookieParser());
@@ -39,6 +40,7 @@ app.use("/api/v1/products", ProductRoute);
 app.use("/api/v1/whishlists", WhishlistRoute);
 app.use("/api/v1/carts", CartRoute);
 app.use("/api/v1/orders", OrderRoute);
+app.use("/api/v1/contacts", ContactRoute);
 
 app.use('/uploads', express.static('uploads'));
 

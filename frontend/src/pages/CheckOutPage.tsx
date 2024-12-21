@@ -5,6 +5,7 @@ import TopHeader from "../components/topHeader/topHead";
 import AxiosInstance from "../config/axiosInstance";
 import { toast } from "react-toastify";
 import Carts from "../interfaces/Cart";
+import { useLocation } from "react-router-dom";
 
 function CheckOut() {
 
@@ -17,21 +18,44 @@ function CheckOut() {
   const [email, setEmail] = useState('');
   const [paymentType, setPaymentType] = useState('');
 
-  const [carts, setCarts] = useState<Carts[]>([]);
-  const customerId = localStorage.getItem("customerId");
+  const [carts] = useState<Carts[]>([]);
+  //const customerId = localStorage.getItem("customerId");
+
+  const location = useLocation();
+  const cart = location.state?.cart;
+  console.log(cart)
+  const product = location.state?.product;
+  console.log(product)
+
+  
+  const subTotalCart  = cart?.reduce((acc: any, product: any) => {
+    return acc + Number(product.quantity) * product.productId.price;
+  }, 0);
+
+  const subTotalProduct = product?.price;
+
+  const grandTotalCart  = subTotalCart + 300;
+  const grandTotalProduct = subTotalProduct + 300;
 
   const handleSubmit =  async() => {
     setLoading(true);
     try {
-      const products = carts.map((cart) => ({
-        productId: cart.productId._id,
-        quantity: cart.quantity,
-        price: cart.productId.price,
-      }));
+      const products = cart ? cart.map((carts: any) => ({
+        productId: carts.productId._id,
+        productName: carts.productName,
+        quantity: carts.quantity,
+        price: carts.productId.price,
+      })) : [{
+        productId: product?._id,
+        productName: product?.name,
+        quantity: product?.qty,
+        price: product?.price,
+      }];
 
       const response = await AxiosInstance.post("/orders/create", {
-        fullName, companyName, address, city, phoneNumber, email, paymentType,products, subTotal,
-        grandTotal,
+        fullName, companyName, address, city, phoneNumber, email, paymentType,products, 
+        subTotal: cart ? subTotalCart : subTotalProduct,
+        grandTotal: cart ? grandTotalCart : grandTotalProduct ,
       });
 
       setFullName('');
@@ -47,30 +71,13 @@ function CheckOut() {
       console.error(error);
     }
   }
-  
-  const getAllCart = async () => {
-    try {
-      const response = await AxiosInstance.get(`/carts/${customerId}`);
-      setCarts(response.data.data);
-    } catch (error) {
-      console.log("Failed to get all cart items");
-    }
-  };
 
-  useEffect(()=> {
-    getAllCart()
-  }, [])
-
-  const subTotal = carts.reduce((acc, product) => {
-    return acc + Number(product.quantity) * product.productId.price;
-  }, 0);
-
-  const grandTotal = subTotal + 300;
+  const [, setSearchText] = useState("");
 
   return (
     <>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText}/>
       <div className="checkout">
         <div className="content">
           <p style={{ color: "grey" }}>Home</p>
@@ -109,12 +116,23 @@ function CheckOut() {
           </div>
 
           <div className="check-right element">
-            {carts.map((cart) => (
-              <div>
-                <img src={cart.productImage.image[0]} alt={cart.productId.name} />
-                <p>Rs.{cart.productId.price}</p>
-              </div>
-            ))}
+            {/* If coming from ProductDetails (single product) */}
+              {product ? (
+                <div key={product._id}>
+                  <img src={product.image[0]} alt={product.name} />
+                  <p>Rs.{product.price}</p>
+                </div>
+              ) : null}
+
+            {/* If coming from Cart (multiple products) */}
+            {cart && cart.length > 0 ? (
+              cart.map((carts: any) => (
+                <div key={carts._id}>
+                  <img src={carts.productImage.image[0]} alt={carts.productName} />
+                  <p>Rs.{carts.productPrice}</p>
+                </div>
+              ))
+            ) : null}
             <div className="check-total">
               <div
                 style={{
@@ -122,7 +140,7 @@ function CheckOut() {
                 }}
               >
                 <p>SubTotal</p>
-                <p>Rs.{subTotal}</p>
+                <p>Rs.{cart ? subTotalCart : subTotalProduct}</p>
               </div>
               <div
                 style={{
@@ -134,7 +152,7 @@ function CheckOut() {
               </div>
               <div>
                 <p>Total</p>
-                <p>Rs.{grandTotal}</p>
+                <p>Rs.{cart ? grandTotalCart : grandTotalProduct}</p>
               </div>
               <div className="input">
                 <input type="radio" name="payment" value={'CREDIT'} id="input-credit" onChange={(e) => {setPaymentType(e.target.value)}}/>

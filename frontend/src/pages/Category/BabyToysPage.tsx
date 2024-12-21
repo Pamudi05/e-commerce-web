@@ -8,16 +8,22 @@ import LinearLoadingComponent from "../../components/loading/LinearLoadingCompon
 import ProductCard from "../../components/productCard/productCard";
 import Product from "../../interfaces/Product";
 
-function BabyToyPage() {
+interface AllCategoryProps {
+  searchText: string;
+}
+
+function BabyToyPage({ searchText }: AllCategoryProps) {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
   const customerId = localStorage.getItem("customerId");
 
-  const getProducts = async () => {
+  const getProducts = async (searchQuery: string = "") => {
     setLoading(true);
     try {
-      const response = await AxiosInstance.get("/products/findAll");
+      const response = await AxiosInstance.get("/products/findAll" , {
+        params: { searchText: searchQuery },
+      });
       setProducts(response.data);
       console.log(response);
     } catch (error) {
@@ -29,8 +35,8 @@ function BabyToyPage() {
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts(searchText);
+  }, [searchText]);
 
   const babyToys = products.filter(
     (product) => product.category === "BabyToys"
@@ -39,7 +45,9 @@ function BabyToyPage() {
   return (
     <div>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={function (text: string): void {
+        throw new Error("Function not implemented.");
+      } } />
       {/* using same css */}
       <div className="home">
         <div className="home-left element">

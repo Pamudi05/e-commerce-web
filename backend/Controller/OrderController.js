@@ -2,7 +2,6 @@ const Order = require("../Model/OrderModel")
 
 const createOrder = async (req, res) => {
   try {
-
     const order = new Order({
       fullName: req.body.fullName,
       companyName: req.body.companyName,

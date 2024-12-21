@@ -8,16 +8,23 @@ import LinearLoadingComponent from "../../components/loading/LinearLoadingCompon
 import ProductCard from "../../components/productCard/productCard";
 import Product from "../../interfaces/Product";
 
-function AccessoryPage() {
+interface AllCategoryProps {
+  searchText: string;
+}
+
+function AccessoryPage({ searchText }: AllCategoryProps) {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
   const customerId = localStorage.getItem("customerId");
 
-  const getProducts = async () => {
+  const getProducts = async (searchQuery: string = "") => {
     setLoading(true);
     try {
-      const response = await AxiosInstance.get("/products/findAll");
+      const response = await AxiosInstance.get("/products/findAll" , {
+        params: { searchText: searchQuery },
+      });
+      console.log(response.data)
       setProducts(response.data);
     } catch (error) {
       toast.error("Please try again.");
@@ -28,17 +35,18 @@ function AccessoryPage() {
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts(searchText);
+  }, [searchText]);
 
   const accessories = products.filter(
     (product) => product.category === "Accessories"
   );
 
+  const [,setSearchText] = useState(searchText)
   return (
     <div>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText} />
       {/* using same css */}
       <div className="home">
         <div className="home-left element">

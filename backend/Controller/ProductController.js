@@ -36,6 +36,8 @@ const findAllProduct = (req, res) => {
     const pageNumber = parseInt(req.query.pageNumber) || 1;
     const pageSize = parseInt(req.query.size) || 10;
 
+    console.log("Search Text:", searchText);
+    
     const query = {
       $or : [
         {name: new RegExp(searchText, "i")},
@@ -66,7 +68,11 @@ const findById = (req, res) => {
 
     Product.findById(productId).then((result) => {
       if(result) {
-        res.status(200).json({ data: result});
+        const product = {
+          ...result._doc,
+          image: result.image.map((img) => `${req.protocol}://${req.get('host')}/${img}`),
+        };
+        res.status(200).json({ data: product});
       } else {
         res.status(404).json({ message : "Product Not Found"});
       }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import '../App.css';
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
@@ -7,10 +8,12 @@ import TopHeader from "../components/topHeader/topHead";
 import AllProducts from './AllProducts';
 
 function HomePage() {
+    const [searchText, setSearchText] = useState("");
+    
     return (
         <div >
             <TopHeader/>
-            <NavBar />
+            <NavBar setSearchText={setSearchText} />
             <div className="home">
                 <div className='home-left element'>
                     <Sidebar/>
@@ -19,7 +22,7 @@ function HomePage() {
                     <Slider/>
                 </div>
             </div>
-            <AllProducts/>
+            <AllProducts searchText={searchText}/>
             <Footer/>
         </div>
     );

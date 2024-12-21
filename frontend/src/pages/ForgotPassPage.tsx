@@ -3,12 +3,15 @@ import Footer from "../components/footer/Footer";
 import { TextField } from "@mui/material";
 import NavBar from "../components/navBar/NavBar";
 import TopHeader from "../components/topHeader/topHead";
+import { useState } from "react";
 
 function forgotPassword() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [, setSearchText] = useState("");
   return (
     <>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText}/>
       <div className="signUp">
         <div className="signUp-left element">
           <img src="/assets/Side-Image.png" alt="side" />

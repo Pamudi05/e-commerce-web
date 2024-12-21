@@ -1,12 +1,15 @@
+import { useState } from "react";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
 import TopHeader from "../components/topHeader/topHead";
 
 function About() {
+  const [, setSearchText] = useState("");
+  
   return (
     <>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText}/>
       <div className="about">
         <div className="content">
           <p style={{ color: "grey" }}>Home</p>

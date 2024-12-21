@@ -1,4 +1,3 @@
-import React from 'react';
 import './LoadingComponent.css';
 
 const LinearLoadingComponent = () => {

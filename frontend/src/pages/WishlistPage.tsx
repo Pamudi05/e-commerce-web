@@ -9,20 +9,26 @@ import LinearLoadingComponent from "../components/loading/LinearLoadingComponent
 import { AxiosResponse } from "axios";
 import WhishList from "../interfaces/Wishlist";
 
-function Wishlist() {
+interface WishlistProps {
+  searchText: string;
+}
+
+function Wishlist({ searchText }: WishlistProps) {
   const [loading, setLoading] = useState(false);
   const [wishlist, setWhislists] = useState<WhishList[]>([]);
 
   const customerId = localStorage.getItem("customerId");
 
-  const getAllWhislist = async () => {
+  const getAllWhislist = async (searchQuery: string = "") => {
     setLoading(true);
     try {
       const response: AxiosResponse<{ data: WhishList[] }> =
-        await AxiosInstance.get("/whishlists/");
+        await AxiosInstance.get("/whishlists/" , {
+          params: { searchText: searchQuery },
+        });
       setWhislists(response.data.data);
     } catch (error: any) {
-      toast.error(`${error.response.data.message}`);
+      //toast.error(`${error.response.data.message}`);
     } finally {
       setLoading(false);
     }
@@ -60,13 +66,15 @@ function Wishlist() {
   };
 
   useEffect(() => {
-    getAllWhislist();
-  }, []);
+    getAllWhislist(searchText);
+  }, [searchText]);
+
+  const [,setSearchText] = useState('');
 
   return (
     <>
       <TopHeader />
-      <NavBar />
+      <NavBar setSearchText={setSearchText} />
       <div className="wishlist">
         <div className="content">
           <p style={{ color: "grey" }}>Home</p>
@@ -84,7 +92,9 @@ function Wishlist() {
             <p>
               <LinearLoadingComponent />
             </p>
-          ) : (
+          ) : wishlist.length === 0 ? (
+            <p style={{width: '100%',  textAlign: 'center'}}>No items in your wishlist.</p>
+          ): (
             wishlist.map((product) => (
               <ProductCard
                 key={product.productId._id}

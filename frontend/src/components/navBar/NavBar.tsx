@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
-function NavBar() {
+interface NavBarProps {
+  setSearchText: (text: string) => void;
+}
+
+function NavBar({ setSearchText }: NavBarProps) {
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+  
   return (
     <div className="navBar">
       <div className="container">
@@ -24,6 +33,7 @@ function NavBar() {
                   type="search"
                   name="search"
                   placeholder="What are you looking for"
+                  onChange={handleSearchChange}
                 />
                 <img src="/assets/search.png" alt="search" />
               </div>

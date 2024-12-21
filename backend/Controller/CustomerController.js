@@ -1,20 +1,6 @@
 const Customer = require("../Model/CustomerModel");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  service: "gmail",
-  port: process.env.EMAIL_PORT,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+const transporter = require("../Utils/nodemailer")
 
 const create = async (req, res) => {
   try {
@@ -52,7 +38,7 @@ const create = async (req, res) => {
       if (error) {
         return res.status(500).json({ error: error });
       } else {
-        console.log("email sent");
+        //console.log("email sent");
         return res.status(200).json({ message: "Email Sent" , info});
       }
     });

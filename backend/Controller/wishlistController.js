@@ -30,8 +30,6 @@ const findWishlist = async (req, res) => {
   try {
     const { customerId } = req.params;
     const wishlist = await Wishlist.find({ customerId }).populate('productId');
-
-    console.log(wishlist)
     
     if (wishlist.length === 0) {
       return res.status(404).json({ message: "No items in wishlist" });
@@ -45,6 +43,7 @@ const findWishlist = async (req, res) => {
 
 const findAllWishlist = async (req, res) => {
   try {
+    
     const wishlist = await Wishlist.find().populate('productId');
 
     if (wishlist.length === 0) {
